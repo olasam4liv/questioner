@@ -8,11 +8,22 @@ body{
     background-color: snow
 } 
 /* Global */
+/* main {
+    flex: 1;
+  } */
+  
+   
+  
 .container {
     width: 80%;
     margin: auto;
     overflow: hidden;
-}   
+} 
+.user-container {
+    width: 80;
+    margin: auto;
+    overflow: hidden;
+}     
 .button_1{
     height: 38px;
     background: #222fe0;
@@ -25,6 +36,15 @@ body{
 ul{
     margin: 0;
     padding: 0;
+}
+.sidebackground{
+    padding: 15px;
+    background: #81d1e9;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    
 }
 /* header */
 header{
@@ -60,7 +80,7 @@ header nav{
 }
 
 header .highlight, header .current a{
-    color: #81d1e9;
+    color: #5acef1;
      font-weight: bold;
 }
 
@@ -122,6 +142,32 @@ header a:hover{
     width: 90px;
 }
 
+/* sidebar */
+aside#sidebar{
+    float: right;
+    width: 30%;
+    margin-top: 10px;
+}
+/* about main-col */
+article#main-col{
+    float: left;
+    width: 65%;
+}
+
+/* user sidebar */
+aside#user-sidebar{
+    float: left;
+    width: 30%;
+    margin-top: 5px;
+    /* border-left: #2a2f74 4px solid; */
+    padding-left: 0px ;
+}
+/* about main-col */
+article#user-main-col{
+    float: right;
+    width: 65%;
+}
+
 /* footer */
 footer{
     padding: 10px;
@@ -147,4 +193,107 @@ footer{
     margin: 10px auto 0;
   }
    
+/* login */
+
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }
+  .form {
+    position: relative;
+    z-index: 1;
+    background: #5acef1;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  .form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #222fe0;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;     
+    cursor: pointer;
+  }
+  .form button:hover,.form button:active,.form button:focus {
+    background: #222fe0;
+  }
+  .form .message {
+    margin: 15px 0 0;
+     
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #222fe0;
+    text-decoration: none;
+  }
+  .form .register-form {
+    display: block;
+  }
   
+  .container .info {
+    margin: 50px auto;
+    text-align: center;
+  }
+  .container .info h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+  }
+  .container .info span {
+    color: #4d4d4d;
+    font-size: 12px;
+  }
+  .container .info span a {
+    color: #000000;
+    text-decoration: none;
+  }
+  .container .info span .fa {
+    color: #5acef1;
+  }
+ 
+
+/* FORM STYLES */
+ 
+    /* Media Queries */
+
+    @media(max-width: 768px){
+        header #branding,
+        header nav,
+        header nav li{
+            float:none;
+            text-align:center;
+            width:100%;
+
+        }
+header{
+    padding-bottom: 20px;
+}
+#showcase h1{
+    margin-top: 48px;
+}
+#newsletter{
+    width: 0px;
+}
+
+    }
