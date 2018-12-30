@@ -10,7 +10,7 @@ let meetups = [];
 app.get('/', function(res, res){
     res.status(200).json({
         status: 1,
-        data: "Welcome to questioneer app"
+        data: "Welcome to questioner app"
     })
 });
 
