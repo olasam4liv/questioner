@@ -123,6 +123,14 @@ if (!(location)){
         data: meetup
     })
 });
+//get all created upcoming meetup
+app.get('/meetups/upcoming', (req, res) => {
+    res.status(200).json({
+        status: 1,
+        data: upcomingMeetups
+    })
+});
+
 
 
 
