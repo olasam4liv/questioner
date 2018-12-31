@@ -75,6 +75,58 @@ app.get('/meetups', (req, res) => {
 //get meetup by id
 
 
+
+
+//upcoming meetup post
+app.post('/meetups/upcoming', (req, res) => {
+    // extract data from request object
+    const { location, happeningOn, topic, tags} = req.body;
+
+   // check if any one does not exist
+
+if (!(location)){
+    return res.status(404).json({
+        status: 404,
+        error: "Location is Required"
+    });
+} else if (!(happeningOn)){
+    return res.status(404).json({
+        status: 'false',
+        error: "HappeningOn is Required"
+    });
+}else if (!(topic)){
+    return res.status(404).json({
+        status: 404,
+        error: "Topic is Required"
+    });
+}else if (!(tags)){
+    return res.status(404).json({
+        status: 404,
+        error: "Tags are Required"
+    });
+}   
+    const createdOn = new Date();
+
+    // save all variables in an object and push into the upcomingmeetups array
+    const meetup = {
+        id: upcomingMeetups.length +1,
+        location,
+        createdOn: createdOn.toDateString(),
+        happeningOn: new Date(happeningOn).toDateString(),
+        topic,
+        tags
+    }
+    upcomingMeetups.push(meetup);
+
+    res.status(201).json({
+        status: 200,
+        data: meetup
+    })
+});
+
+
+
 app.listen(3000, ()=>{
     console.log('server started on port 3000')
 });
+
