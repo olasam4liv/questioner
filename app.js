@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const uniqId = require('uniqid');
+//const uniqId = require('uniqid');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 let meetups = [];
+let upcomingMeetups=[];
 
 app.get('/', function(res, res){
     res.status(200).json({
@@ -14,12 +15,12 @@ app.get('/', function(res, res){
     })
 });
 
+//meetup post
 app.post('/meetups', (req, res) => {
     // extract data from request object
     const { location, happeningOn, topic, tags} = req.body;
 
    // check if any one does not exist
-
 if (!(location)){
     return res.status(404).json({
         status: 404,
@@ -41,14 +42,13 @@ if (!(location)){
         error: "Tags is Required"
     });
 }
-
-    
-    const id = uniqId();
+   
+    //const id = uniqId();
     const createdOn = new Date();
 
-    // save all variables is an object and push into the meetups array
+    // save all variables in an object and push into the meetups array
     const meetup = {
-        id,
+        id: meetups.length + 1,
         location,
         createdOn: createdOn.toDateString(),
         happeningOn: new Date(happeningOn).toDateString(),
@@ -63,8 +63,18 @@ if (!(location)){
     })
 });
 
+//get all created meetup
+app.get('/meetups', (req, res) => {
+    res.status(200).json({
+        status: 1,
+        data: meetups
+    })
+});
 
  
-app.listen(3000, function(){
+//get meetup by id
+
+
+app.listen(3000, ()=>{
     console.log('server started on port 3000')
 });
