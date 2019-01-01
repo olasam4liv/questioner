@@ -70,6 +70,14 @@ res.status(201).json({
 })
 });
 
+//get all registered users
+app.get('/users/allusers', (req, res)=>{ 
+    res.status(200).json({
+        status: 1,
+        data: users
+    })
+});
+
 
 //meetup post
 app.post('/meetups', (req, res) => {
