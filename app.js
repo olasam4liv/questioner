@@ -6,7 +6,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 let meetups = [];
-let upcomingMeetups=[];
+let upcomingMeetups = [];
+let users = [];
 
 app.get('/', function(res, res){
     res.status(200).json({
@@ -14,6 +15,61 @@ app.get('/', function(res, res){
         data: "Welcome to questioner app"
     })
 });
+//user registration
+app.post('/users', (req, res) => {
+    // extract data from request object
+    const { firstname, 
+        lastname, 
+        othername, 
+        email, 
+        phoneNumber, 
+        username, 
+        registered = new Date(), 
+        isAdmin = new Boolean(1,0)
+    } = req.body;
+
+   // check if any one does not exist
+if (!(firstname)){
+    return res.status(404).json({
+        status: 404,
+        error: "Firstname is Required"
+    });
+} else if (!(lastname)){
+    return res.status(404).json({
+        status: 'false',
+        error: "Lastname is Required"
+    });
+}else if (!(email)){
+    return res.status(404).json({
+        status: 404,
+        error: "Email is Required"
+    });
+}else if (!(phoneNumber)){
+    return res.status(404).json({
+        status: 404,
+        error: "Phone Number is Required"
+    });
+    }
+     
+// save all variables in an object and push into the users array
+const user = {
+    id: users.length + 1,
+    firstname,
+    lastname,
+    othername,
+    phoneNumber,
+    username,
+    registered: registered.toDateString(),
+    isAdmin 
+    }
+users.push(user);
+
+res.status(201).json({
+    status: 200,
+    data: user
+})
+});
+
 
 //meetup post
 app.post('/meetups', (req, res) => {
