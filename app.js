@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let meetups = [];
 let upcomingMeetups = [];
 let users = [];
+let questions = [];
 
 app.get('/', function(res, res){
     res.status(200).json({
@@ -78,7 +79,6 @@ app.get('/users/allusers', (req, res)=>{
     })
 });
 
-
 //meetup post
 app.post('/meetups', (req, res) => {
     // extract data from request object
@@ -134,12 +134,30 @@ app.get('/meetups', (req, res) => {
         data: meetups
     })
 });
-
  
 //get meetup by id
+app.get('/meetups/:meetup-id', (req, res)=>{
+     
+const id = parseInt(req.params.id, 10);
+  meetups.map((meetup) => {
+    if (meetup.id === id) {
+      return res.status(200).json({
+        status: 1,
+        data: meetups.findIndex(id),
+        message: 'meetup retrieved successfully',
+        //meetups
+      });
+    } 
 
-
-
+    
+});
+return res.status(404).send({
+    status: 0,
+    success: 'false',
+    message: 'Record not found',
+    //data: meetups
+   });
+});
 
 //upcoming meetup post
 app.post('/meetups/upcoming', (req, res) => {
@@ -147,7 +165,6 @@ app.post('/meetups/upcoming', (req, res) => {
     const { location, happeningOn, topic, tags} = req.body;
 
    // check if any one does not exist
-
 if (!(location)){
     return res.status(404).json({
         status: 404,
@@ -196,7 +213,34 @@ app.get('/meetups/upcoming', (req, res) => {
 });
 
 
+//create a question for a specific meetup
+app.post('/question', (req, res)=>{
+    const {
+        user = users.username,
+        meetup,
+        title,
+        body
+    }=req.body
+    // if (!(user)){
+    //     return res.status(404).json({
+    //         status: 404,
+    //         error: "User is Required"
+    //     });
+    // }
+    const question = {
+        //id: meetups.length + 1,
+        user,
+        meetup,
+        title,
+        body        
+    }
+    questions.push(question);
 
+    res.status(201).json({
+        status: 200,
+        data: question
+    })
+});
 
 app.listen(3000, ()=>{
     console.log('server started on port 3000')
