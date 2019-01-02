@@ -129,6 +129,7 @@ if (!(location)){
 
 //get all created meetup
 app.get('/meetups', (req, res) => {
+    const meetup= meetups;
     res.status(200).json({
         status: 1,
         data: meetups
@@ -150,7 +151,21 @@ app.get('/meetups/:id', async (req, res) => {
     })
      
 });
-
+//delete meetup by id
+app.delete('/meetups/:id', async (req, res) => {
+    const index = await meetups.findIndex(c => c.id === Number(req.params.id));
+    if(index < 0) {
+        return res.status(404).json({
+            status: 0,
+            error: "No meetup found for the specified id"
+        });
+    }
+    meetups.splice(index, 1);
+    res.status(200).json({
+        status: 1,
+        message: "Meetup deleted successfully"
+    });
+})
 
 //upcoming meetup post
 app.post('/meetups/upcoming', (req, res) => {
@@ -197,6 +212,7 @@ if (!(location)){
         data: meetup
     })
 });
+
 //get all created upcoming meetup
 app.get('/meetups/upcoming', (req, res) => {
     res.status(200).json({
