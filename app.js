@@ -32,7 +32,7 @@ app.post('/users', (req, res) => {
    // check if any one does not exist
 if (!(firstname)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Firstname is Required"
     });
 } else if (!(lastname)){
@@ -42,12 +42,12 @@ if (!(firstname)){
     });
 }else if (!(email)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Email is Required"
     });
 }else if (!(phoneNumber)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Phone Number is Required"
     });
     }
@@ -66,7 +66,7 @@ const user = {
 users.push(user);
 
 res.status(201).json({
-    status: 200,
+    status: 1,
     data: user
 })
 });
@@ -87,22 +87,22 @@ app.post('/meetups', (req, res) => {
    // check if any one does not exist
 if (!(location)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Location is Required"
     });
 } else if (!(happeningOn)){
     return res.status(404).json({
-        status: 'false',
+        status: 0,
         error: "HappeningOn is Required"
     });
 }else if (!(topic)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Topic is Required"
     });
 }else if (!(tags)){
     return res.status(404).json({
-        status: 404,
+        status: 0,
         error: "Tags is Required"
     });
 }
@@ -122,7 +122,7 @@ if (!(location)){
     meetups.push(meetup);
 
     res.status(201).json({
-        status: 200,
+        status: 1,
         data: meetup
     })
 });
@@ -136,28 +136,21 @@ app.get('/meetups', (req, res) => {
 });
  
 //get meetup by id
-app.get('/meetups/:meetup-id', (req, res)=>{
-     
-const id = parseInt(req.params.id, 10);
-  meetups.map((meetup) => {
-    if (meetup.id === id) {
-      return res.status(200).json({
+app.get('/meetups/:id', async (req, res) => {
+    const meetup = await meetups.find(c => c.id === Number(req.params.id));  
+    if(!meetup) {
+        return res.status(404).json({
+            status: 0,
+            error: "No meetup found for the specified id"
+        });
+    }
+    res.status(200).json({
         status: 1,
-        data: meetups.findIndex(id),
-        message: 'meetup retrieved successfully',
-        //meetups
-      });
-    } 
+        data: meetup
+    })
+     
+});
 
-    
-});
-return res.status(404).send({
-    status: 0,
-    success: 'false',
-    message: 'Record not found',
-    //data: meetups
-   });
-});
 
 //upcoming meetup post
 app.post('/meetups/upcoming', (req, res) => {
