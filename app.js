@@ -11,6 +11,19 @@ let upcomingMeetups = [];
 let users = [];
 let questions = [];
 
+app.post('/login',(req, res)=>{
+const user ={
+    id:1,
+    username: 'sam',
+    email: 'olasam4liv@gmail.com'
+}
+jwt.sign({user}, 'secretkey', (req, token)=>{
+    res.json({
+        token
+    });
+});
+});
+
 app.get('/', function(res, res){
     res.status(200).json({
         status: 1,
@@ -18,7 +31,7 @@ app.get('/', function(res, res){
     })
 });
 //user registration
-app.post('/users', (req, res) => {
+app.post('/users', (req, res, ) => {
     // extract data from request object
     const { firstname, 
         lastname, 
@@ -29,7 +42,7 @@ app.post('/users', (req, res) => {
         registered = new Date(), 
         isAdmin = new Boolean(1,0)
     } = req.body;
-
+    
    // check if any one does not exist
 if (!(firstname)){
     return res.status(404).json({
@@ -52,10 +65,11 @@ if (!(firstname)){
         error: "Phone Number is Required"
     });
     }
-     
+   
 // save all variables in an object and push into the users array
 const user = {
     id: users.length + 1,
+    userid,
     firstname,
     lastname,
     othername,
@@ -271,6 +285,6 @@ app.post('/question', (req, res)=>{
 });
 
 app.listen(3000, ()=>{
-    console.log('server started on port 3000')
+    console.log(`server started on port 3000`)
 });
 
