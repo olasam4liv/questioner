@@ -4,16 +4,8 @@
   "description": "Crowd-source questions for a meetup.",
   "main": "app.js",
   "dependencies": {
-<<<<<<< HEAD
-    "body-parser": "^1.18.3",
-    "eslint": "^5.11.0",
-    "express": "^4.16.4",
-    "travis": "^0.1.1",
-    "uniqid": "^5.0.3"
-=======
     "eslint": "^5.11.0",
     "express": "^4.16.4"
->>>>>>> 74c1e23051dec9893013fc81f844d49162b8575f
   },
   "devDependencies": {
     "mocha": "^5.2.0"
