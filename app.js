@@ -31,7 +31,7 @@ app.get('/', function(res, res){
     })
 });
 //user registration
-app.post('/users', (req, res, ) => {
+app.post('/api/v1/users', (req, res, ) => {
     // extract data from request object
     const { firstname, 
         lastname, 
@@ -87,7 +87,7 @@ res.status(200).json({
 });
 
 //get all registered users
-app.get('/users/allusers', (req, res)=>{ 
+app.get('/api/v1/users/allusers', (req, res)=>{ 
     res.status(200).json({
         status: 201,
         data: users
@@ -95,7 +95,7 @@ app.get('/users/allusers', (req, res)=>{
 });
 
 //meetup post
-app.post('/meetups', (req, res) => {
+app.post('/api/v1/meetups', (req, res) => {
     // extract data from request object
     const { location, happeningOn, topic, tags} = req.body;
 
@@ -143,7 +143,7 @@ if (!(location)){
 });
 
 //get all created meetup
-app.get('/meetups', (req, res) => {   
+app.get('/api/v1/meetups', (req, res) => {   
     res.status(200).json({
         status: 201,
         data: meetups
@@ -151,7 +151,7 @@ app.get('/meetups', (req, res) => {
 });
  
 //get meetup by id
-app.get('/meetups/:id', async (req, res) => {
+app.get('/api/v1/meetups/:id', async (req, res) => {
     const meetup = await meetups.find(c => c.id === Number(req.params.id));  
     if(!meetup) {
         return res.status(404).json({
@@ -166,7 +166,7 @@ app.get('/meetups/:id', async (req, res) => {
      
 });
 //delete meetup by id
-app.delete('/meetups/:id', async (req, res) => {
+app.delete('/api/v1/meetups/:id', async (req, res) => {
     const index = await meetups.findIndex(c => c.id === Number(req.params.id));
     if(index < 0) {
         return res.status(404).json({
@@ -182,7 +182,7 @@ app.delete('/meetups/:id', async (req, res) => {
 })
 
 //Update meetup by id
-app.put('/meetups/:id', async (req, res) => {
+app.put('/api/v1/meetups/:id', async (req, res) => {
     const meetup = await meetups.find(c => c.id === Number(req.params.id));  
     if(!meetup) {
         return res.status(404).json({
@@ -201,7 +201,7 @@ meetups.tags = req.body.tags;
      
 });
 //upcoming meetup post
-app.post('/meetups/upcoming', (req, res) => {
+app.post('/api/v1/meetups/upcoming', (req, res) => {
     // extract data from request object
     const { location, happeningOn, topic, tags} = req.body;
 
@@ -247,7 +247,7 @@ if (!(location)){
 });
 
 //get all created upcoming meetup
-app.get('/meetups/upcoming', (req, res) => {  
+app.get('/api/v1/meetups/upcoming', (req, res) => {  
     res.status(200).json({
         status: 201,
         data: upcomingMeetups
@@ -256,7 +256,7 @@ app.get('/meetups/upcoming', (req, res) => {
 
 
 //create a question for a specific meetup
-app.post('/question', (req, res)=>{
+app.post('/api/v1/question', (req, res)=>{
     const {
         user = users.username,
         meetup,
@@ -287,4 +287,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT)
 
 console.log(`server started on port ${PORT}`)
-
