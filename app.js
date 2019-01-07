@@ -24,7 +24,7 @@ jwt.sign({user}, 'secretkey', (req, token)=>{
 });
 });
 
-app.get('/', function(res, res){
+app.get('/', (req, res) => {
     res.status(200).json({
         status: 1,
         data: "Welcome to questioner app"
@@ -142,7 +142,7 @@ if (!(location)){
     })
 });
 
-//get all created meetup
+//get all meetup
 app.get('/api/v1/meetups', (req, res) => {   
     res.status(200).json({
         status: 201,
@@ -183,17 +183,18 @@ app.delete('/api/v1/meetups/:id', async (req, res) => {
 
 //Update meetup by id
 app.put('/api/v1/meetups/:id', async (req, res) => {
-    const meetup = await meetups.find(c => c.id === Number(req.params.id));  
+const meetup = await meetups.find(c => c.id === Number(req.params.id));  
     if(!meetup) {
         return res.status(404).json({
             status: 404,
-            error: "No meetup found for the specified id"
+            error: "No Record found for the specified id"
         });
-    }
-meetups.location = req.body.location;
-meetups.happeningOn = req.body.location;
-meetups.topic = req.body.topic;
-meetups.tags = req.body.tags;
+    }     
+meetup.location = req.body.location;
+meetup.createdOn= req.body.createdOn;
+meetup.happeningOn = req.body.happeningOn;
+meetup.topic = req.body.topic;
+meetup.tags = req.body.tags;
     res.status(200).json({
         status: 201,
         data: meetup
@@ -246,12 +247,27 @@ if (!(location)){
     })
 });
 
-//get all created upcoming meetup
+//get all upcoming meetup
 app.get('/api/v1/meetups/upcoming', (req, res) => {  
     res.status(200).json({
         status: 201,
         data: upcomingMeetups
     })
+});
+//get Upcoming meetup by id
+app.get('/api/v1/meetups/upcoming/:id', async (req, res) => {
+    const meetup = await upcomingMeetups.find(c => c.id === Number(req.params.id));  
+    if(!meetup) {
+        return res.status(404).json({
+            status: 404,
+            error: "No Upcoming meetup found for the specified id"
+        });
+    }
+    res.status(200).json({
+        status: 201,
+        data: meetup
+    })
+     
 });
 
 
@@ -263,14 +279,13 @@ app.post('/api/v1/question', (req, res)=>{
         title,
         body
     }=req.body
-    // if (!(user)){
-    //     return res.status(404).json({
-    //         status: 404,
-    //         error: "User is Required"
-    //     });
-    // }
+    if (!(user)){
+        return res.status(404).json({
+            status: 404,
+            error: "User is Required"
+        });
+    }
     const question = {
-        //id: meetups.length + 1,
         user,
         meetup,
         title,
@@ -284,6 +299,8 @@ app.post('/api/v1/question', (req, res)=>{
     })
 });
 const PORT = process.env.PORT || 3000;
-app.listen(PORT)
+app.listen(PORT, ()=>{
+    console.log(`server started on port ${PORT}`);
+})
 
-console.log(`server started on port ${PORT}`)
+
