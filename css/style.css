@@ -33,6 +33,17 @@ body{
     color: #ffffff;
 }
 
+.button_1 a{
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: unset;
+    text-transform: unset;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+
+
 ul{
     margin: 0;
     padding: 0;
@@ -57,7 +68,7 @@ header{
 header a{
     color: #ffffff;
     text-decoration: none;
-    text-transform:  uppercase;
+    text-transform: unset;
     font-size: 16px;
 }
 
@@ -95,7 +106,12 @@ header a:hover{
 	background-size:cover;	
     position: relative;
     text-align: center;
-    
+    text-shadow:-1px -1px 0 #ffffff,  
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
+    -webkit-font-smoothing: antialiased;
+    outline-color: #222fe0;
     color: #2a2f74;
 }
 #showcase h1{
@@ -176,6 +192,9 @@ footer{
      color:#2a2f74;
      background-color: #81d1e9;
      text-align: center;
+
+     
+     
 }
 
 .features__title {
